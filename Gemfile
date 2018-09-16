@@ -15,6 +15,15 @@ gem 'coffee-rails', '~> 4.2'
 gem 'nokogiri'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 
+gem 'html2slim'
+gem 'slim-rails', '3.1.3'
+gem 'turbolinks'
+
+gem 'elasticsearch'
+gem 'elasticsearch-dsl', git: 'git://github.com/elasticsearch/elasticsearch-ruby.git'
+gem 'elasticsearch-model', github: 'elastic/elasticsearch-rails', branch: '5.x'
+gem 'elasticsearch-rails', github: 'elastic/elasticsearch-rails', branch: '5.x'
+gem 'elasticsearch-ruby'
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'
