@@ -1,0 +1,11 @@
+h1
+  | Flowers#index
+p
+  | Find me in app/views/flowers/index.html.erb
+div style="display: flex;flex-direction: row;"
+  div style="display: flex;flex-direction: column;"
+    - @flowers.each do |fl|
+      li style="flex: 1;"
+        = image_tag "https://www.shuminoengei.jp/#{fl.img}"
+      li style="flex: 1;"
+        = fl.name
