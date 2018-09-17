@@ -1,0 +1,56 @@
+PUT my_index
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_custom_analyzer": {
+          "type":      "custom",
+          "tokenizer": "kuromoji_tokenizer",
+          "char_filter": [
+            "html_strip"
+          ],
+          "char_filter": [
+            "lowercase",
+            "kuromoji_iteration_mark"
+          ],
+          "filter": [
+            "kuromoji_baseform",
+            "kuromoji_part_of_speech",
+            "ja_stop",
+            "kuromoji_number",
+            "kuromoji_stemmer"
+          ]
+        }
+      }
+    }
+  },
+  "_all" : {"enabled" :  false}
+}
+
+POST my_index/_analyze
+{
+  "analyzer": "my_custom_analyzer",
+  "text": "Is this <b>déjà vu</b>?"
+}
+
+
+
+{
+  "cluster_name" : "elasticsearch_akane",
+  "nodes" : {
+    "qIwzWBwQSyessRMxjKM4GQ" : {
+      "name" : "Nitro",
+      "transport_address" : "10.0.2.15:9300",
+      "host" : "10.0.2.15",
+      "ip" : "10.0.2.15",
+      "version" : "2.1.1",
+      "build" : "40e2c53",
+      "http_address" : "10.0.2.15:9200",
+      "process" : {
+        "refresh_interval_in_millis" : 1000,
+        "id" : 13058,
+        "mlockall" : true
+      }
+    }
+  }
+}

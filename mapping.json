@@ -1,0 +1,28 @@
+{
+  "settings": {
+    "analysis": {
+      "analyzer": {
+        "my_kuromoji_analyzer": {
+          "type": "custom",
+          "tokenizer": "kuromoji_tokenizer"
+        }
+      }
+    }
+  },
+  "mappings": {
+    "natsume": {
+      "properties": {
+        "title": {
+          "type": "string",
+          "index": "analyzed",
+          "analyzer": "my_kuromoji_analyzer"
+        },
+        "sentence": {
+          "type": "string",
+          "index": "analyzed",
+          "analyzer": "my_kuromoji_analyzer"
+        }
+      }
+    }
+  }
+}
