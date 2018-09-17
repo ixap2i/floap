@@ -1,11 +1,7 @@
 class FlowersController < ApplicationController
   def index
     @flowers = if params[:search]
-      # Flower.search(query: {match: {name: params[:search]}}).records
-      binding.pry
-      # Flower.search({query: {match: {name: params[:search]}}}).records
-      Flower.search({"_source": {"name": params[:search]}}).records
-
+      Flower.search(query: {match: {name: params[:search]}}).records
     else
       Flower.all
     end

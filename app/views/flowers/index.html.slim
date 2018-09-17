@@ -2,6 +2,10 @@ h1
   | Flowers#index
 p
   | Find me in app/views/flowers/index.html.erb
+= form_tag flowers_path, :method => :get do
+  = text_field_tag :search, params[:search]
+  = submit_tag "Search", :name=> nil
+end
 div style="display: flex;flex-direction: row;"
   div style="display: flex;flex-direction: column;"
     - @flowers.each do |fl|
@@ -9,3 +13,5 @@ div style="display: flex;flex-direction: row;"
         = image_tag "https://www.shuminoengei.jp/#{fl.img}"
       li style="flex: 1;"
         = fl.name
+
+= javascript_pack_tag 'hello_vue'
