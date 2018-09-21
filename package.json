@@ -2,9 +2,12 @@
   "name": "floap",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "^3.5.5"
+    "@rails/webpacker": "https://github.com/rails/webpacker.git",
+    "vue": "^2.5.17",
+    "vue-loader": "^15.4.2",
+    "vue-template-compiler": "^2.5.17"
   },
   "devDependencies": {
-    "webpack-dev-server": "^3.1.8"
+    "webpack-cli": "^3.1.0"
   }
 }

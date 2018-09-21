@@ -6,72 +6,146 @@ module FlowerSearchable
     include Elasticsearch::Model
 
 
-    INDEX_FIELDS = %w(name id).freeze
+    # INDEX_FIELDS = %w(name id).freeze
 
     # Set up index configuration and mapping
-    settings index: {
-      number_of_shards:   1,
-      number_of_replicas: 0,
-      analysis: {
-        filter: {
-          pos_filter: {
-            type:     'kuromoji_part_of_speech',
-            stoptags: ['助詞-格助詞-一般', '助詞-終助詞'],
+    settings do
+    {
+      "analysis": {
+        "analyzer": {
+          "keyword_analyzer": {
+            "type": "custom",
+            "char_filter": [
+              "normalize",
+              "whitespaces"
+            ],
+            "tokenizer": "keyword",
+            "filter": [
+              "lowercase",
+              "trim",
+              "maxlength"
+            ]
           },
-          greek_lowercase_filter: {
-            type:     'lowercase',
-            language: 'greek',
+          "autocomplete_index_analyzer": {
+            "type": "custom",
+            "char_filter": [
+              "normalize",
+              "whitespaces"
+            ],
+            "tokenizer": "keyword",
+            "filter": [
+              "lowercase",
+              "trim",
+              "maxlength",
+              "engram"
+            ]
           },
-        },
-        tokenizer: {
-          kuromoji: {
-            type: 'kuromoji_tokenizer'
+          "autocomplete_search_analyzer": {
+            "type": "custom",
+            "char_filter": [
+              "normalize",
+              "whitespaces"
+            ],
+            "tokenizer": "keyword",
+            "filter": [
+              "lowercase",
+              "trim",
+              "maxlength"
+            ]
           },
-          ngram_tokenizer: {
-            type: 'nGram',
-            min_gram: '2',
-            max_gram: '3',
-            token_chars: ['letter', 'digit']
+          "readingform_index_analyzer": {
+            "type": "custom",
+            "char_filter": [
+              "normalize",
+              "whitespaces"
+            ],
+            "tokenizer": "japanese_normal",
+            "filter": [
+              "lowercase",
+              "trim",
+              "readingform",
+              "asciifolding",
+              "maxlength",
+              "engram"
+            ]
+          },
+          "readingform_search_analyzer": {
+            "type": "custom",
+            "char_filter": [
+              "normalize",
+              "whitespaces",
+              "katakana",
+              "romaji"
+            ],
+            "tokenizer": "japanese_normal",
+            "filter": [
+              "lowercase",
+              "trim",
+              "maxlength",
+              "readingform",
+              "asciifolding"
+            ]
           }
         },
-        analyzer: {
-          kuromoji_analyzer: {
-            type:      'custom',
-            tokenizer: 'kuromoji_tokenizer',
-            filter:    ['kuromoji_baseform', 'pos_filter', 'greek_lowercase_filter', 'cjk_width'],
+        "filter": {
+          "readingform": {
+            "type": "kuromoji_readingform",
+            "use_romaji": true
           },
-          ngram_analyzer: {
-            tokenizer: "ngram_tokenizer"
+          "engram": {
+            "type": "edgeNGram",
+            "min_gram": 1,
+            "max_gram": 36
+          },
+          "maxlength": {
+            "type": "length",
+            "max": 36
+          }
+        },
+        "tokenizer": {
+          "japanese_normal": {
+            "mode": "normal",
+            "type": "kuromoji_tokenizer"
+          },
+          "engram": {
+            "type": "edgeNGram",
+            "min_gram": 1,
+            "max_gram": 36
           }
         }
       }
-    } do
-      mapping _source: { enabled: true },
-              _all: { enabled: true, analyzer: "kuromoji_analyzer" } do
-        indexes :id, type: 'integer', index: 'not_analyzed'
-        indexes :name, type: 'string', analyzer: 'kuromoji_analyzer'
+    }
+    end
+    mapping do
+      indexes :id, type: "integer", index: "not_analyzed"
+      indexes :name, type: "string", analyzer: "kuromoji_analyzer",
+
+      _source: {enabled: true},
+      _all: {enabled: true, analyzer: "kuromoji_analyzer"} do
+        indexes :id, type: "integer", index: "not_analyzed"
+        indexes :name, type: "string", analyzer: "kuromoji_analyzer"
       end
     end
 
     index_name "flower_#{Rails.env}"
 
-    # settings do
-    #   mappings dynamic: "false" do
-    #     indexes :name, analyzer: "kuromoji", type: "string"
-    #   end
-    # end
+    def as_indexed_json(options={})
+      flower_attrs = {
+        id: self.id,
+        name: self.name
+      }
+      flower_attrs.as_json
+    end
+  end
 
-    # def as_indexed_json(options={})
-    #   hash = self.as_json(
-    #     include: {
-    #       name: { only: [:flower_name] },
-    #       id: { only: [:flower_id] }
-    #     }
-    #   )
-    #   hash['client_name'] = client.name
-    #
-    #   hash
-    # end
+  def self.search
+    search_definition = Elasticsearch::DSL::Search.search({
+        match: {
+          "flower.keyword": self,
+          fuzziness: "AUTO"
+        }
+      }
+    })
   end
 
 
