@@ -14,7 +14,6 @@ gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'nokogiri'
 gem 'dotenv-rails', require: 'dotenv/rails-now'
-
 gem 'html2slim'
 gem 'slim-rails', '3.1.3'
 gem 'turbolinks'
@@ -24,6 +23,9 @@ gem 'elasticsearch-dsl', git: 'git://github.com/elasticsearch/elasticsearch-ruby
 gem 'elasticsearch-model', github: 'elastic/elasticsearch-rails', branch: '5.x'
 gem 'elasticsearch-rails', github: 'elastic/elasticsearch-rails', branch: '5.x'
 gem 'elasticsearch-ruby'
+gem 'google-cloud-vision'
+gem 'google-cloud-storage'
+
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
   gem 'web-console', '>= 3.3.0'

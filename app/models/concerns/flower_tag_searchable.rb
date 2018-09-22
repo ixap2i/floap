@@ -1,5 +1,4 @@
-module FlowerSearchable
-  # ActiveSupportクラスを継承
+module FlowerTagSearchable
   extend ActiveSupport::Concern
 
   included do
@@ -8,12 +7,12 @@ module FlowerSearchable
     # Set up index configuration and mapping
     mapping do
       indexes :id, type: "integer", index: "not_analyzed"
-      indexes :name, type: "string", analyzer: "kuromoji_analyzer",
+      indexes :tag, type: "string", analyzer: "kuromoji_analyzer",
 
       _source: {enabled: true},
       _all: {enabled: true, analyzer: "kuromoji_analyzer"} do
         indexes :id, type: "integer", index: "not_analyzed"
-        indexes :name, type: "string", analyzer: "kuromoji_analyzer"
+        indexes :tag, type: "string", analyzer: "kuromoji_analyzer"
       end
     end
 
@@ -22,7 +21,7 @@ module FlowerSearchable
     def as_indexed_json(options={})
       flower_attrs = {
         id: self.id,
-        name: self.name
+        tag: self.tag
       }
       flower_attrs.as_json
     end
@@ -31,7 +30,7 @@ module FlowerSearchable
   def self.search
     search_definition = Elasticsearch::DSL::Search.search({
       match: {
-        "flower.keyword": self,
+        "flower_tag.keyword": self,
         fuzziness: "AUTO"
       }
     })
