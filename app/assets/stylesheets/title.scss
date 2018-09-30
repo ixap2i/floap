@@ -1,0 +1,32 @@
+.title {
+  &.-github {
+    width: 40px
+  }
+  &.-search{
+    color: #2b2a2a;
+  }
+  &.-fl-name {
+    color: #2b2a2a;
+    font-family: 'Hannari';
+  }
+}
+
+.logo {
+  font-size: 200px;
+  fill:url("#3d3b3b");
+  stroke-width:0.01em;
+  stroke:#3d3b3b;
+  fill: #ffffe5;
+  stroke-dasharray: 500;
+  stroke-dashoffset: 500;
+  animation: draw-line 4s linear forwards,
+  fill-in 2s 4s linear both;
+  animation-iteration-count: 1;
+}
+@keyframes draw-line {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes fill-in {
+  from { fill-opacity: 0; }
+  to { fill-opacity: 1; }
+}

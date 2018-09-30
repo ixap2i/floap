@@ -1,17 +1,11 @@
 class FlowersController < ApplicationController
   def index
-    @flowers = if params[:search]
-      FlowerTag.where(tag: params[:search])
-    # @flowers = if params[:search]
-    #   FlowerTag.search(
-    #     query:{
-    #       match:{
-    #         name: params[:search]
-    #       }
-    #     }
-    #   ).records
+    if params[:search]
+      @flowers_results = Flower.__elasticsearch__.search("*#{params[:search]}*")
+      @ids = @flowers_results.map{|f| f.id}
+      @flowers = Flower.where(id: @ids)
     else
-      Flower.all
+      @flowers = Flower.all
     end
   end
 

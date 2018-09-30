@@ -12,7 +12,7 @@ namespace :scraping_flower_name do
     doc = Nokogiri::HTML.parse(html, url)
 
     doc.search('#resultArea div a img').each.with_index(1) do |flower,i|
-      unless flower.attribute("src").nil? && flower.attribute("alt").empty?
+      unless flower.attribute("src").nil? && flower.attribute("src").value == "images/common/ha_icon.gif"  && flower.attribute("alt").nil?
         img = flower.attribute("src").value.to_s
         name = flower.attribute("alt").to_s
         flower = Flower.new(name: name, img: img)

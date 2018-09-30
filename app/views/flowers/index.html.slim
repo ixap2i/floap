@@ -1,33 +1,23 @@
-h1
-  | Flowers#index
-p
-  | Find me in app/views/flowers/index.html.erb
-= form_tag flowers_path, :method => :get do
-  = text_field_tag :search, params[:search]
-  = submit_tag "Search", :name=> nil
-end
-div style="display: flex;flex-direction: row;"
-  div style="display: flex;flex-direction: column;"
-    - if params[:search].present?
-      - @flowers.each do |fl|
-        ul.container
-          li style="flex: 1;"
-            = image_tag "https://www.shuminoengei.jp/#{fl.flower.img}"
-          li style="flex: 1;"
-            = fl.flower.name
-          li
-          li
-    - else
+.box.-right
+  h1.title.-search
+    | Flowers#index
+  p
+    | Find me in app/views/flowers/index.html.erb
+  = form_tag flowers_path, :method => :get do
+    = text_field_tag :search, params[:search], class: "form__text"
+    = submit_tag "検索", :name=> nil, class: "form__input"
+  end
+  div style="display: flex;flex-direction: row;"
+    div style="display: flex;flex-direction: column;"
       - @flowers.each do |fl|
         ul.container
           li style="flex: 1;"
             = image_tag "https://www.shuminoengei.jp/#{fl.img}"
-          li style="flex: 1;"
+          li.title.-fl-name style="flex: 1;"
             = fl.name
           li style="display: flex;"
             - fl.flower_tag.each do |tag|
-              .color_box style="background:##{tag.tag};width:20px;height:20px;"
-          li
-          li
+              .pallete__small style="background: ##{tag.tag};"
+                .color-description = "#{tag.tag}"
 
-/= javascript_pack_tag 'hello_vue'
+

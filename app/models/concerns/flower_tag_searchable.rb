@@ -25,16 +25,17 @@ module FlowerTagSearchable
       }
       flower_attrs.as_json
     end
+
+    def self.search
+      search_definition = Elasticsearch::DSL::Search.search({
+        match: {
+          "flower_tag.keyword": self,
+          fuzziness: "AUTO"
+        }
+      })
+    end
   end
 
-  def self.search
-    search_definition = Elasticsearch::DSL::Search.search({
-      match: {
-        "flower_tag.keyword": self,
-        fuzziness: "AUTO"
-      }
-    })
-  end
 
 
   module ClassMethods

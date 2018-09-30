@@ -14,10 +14,33 @@
  *= require_self
  */
 
+body {
+  margin: 0;
+  margin-top: -16px;
+  font-family: 'ヒラギノ丸ゴ ProN W4 11.0d2e1', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-size: 10pt;
+}
+@font-face {
+  font-family: 'Hannari';
+  src: url("Hannari.otf");
+}
+#github, .github {
+  width: 32px;
+  height: 32px;
+  display: block;
+  fill: palegoldenrod;
+}
+input {
+  font-family: 'Hannari';
+  outline-style: none;
+}
 ul, li {
   list-style: none;
 }
-
+img {
+  border-radius: 34px;
+}
 .container {
+  position: relative;
   padding-bottom: 20px;
 }

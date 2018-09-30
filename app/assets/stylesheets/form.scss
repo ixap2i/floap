@@ -1,0 +1,19 @@
+$border-set: dashed #bdbcbc 1px;
+$border-radius: 3px;
+.form {
+  &__text {
+    width: 120px;
+    height: 20px;
+    border: $border-set;
+    border-radius: $border-radius;
+    &:focus {
+      background: #ffffe5;
+    }
+  }
+  &__input {
+    height: 25px;
+    border: $border-set;
+    border-radius: $border-radius;
+    margin-left: 2px;
+  }
+}

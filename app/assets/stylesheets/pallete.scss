@@ -1,0 +1,36 @@
+.pallete {
+  &__small {
+    width: 20px;
+    height: 20px;
+    border-radius: 7px;
+    margin-right: 2px;
+    transition: 1s;
+    .color-description {
+      display: none;
+      width: 50px;
+      height: 16pt;
+      padding: 2px 4px;
+      background: #ffffe5;
+      position: relative;
+      bottom: -38px;
+      border: dashed rgb(189, 188, 188) 1px;
+      border-radius: 3px;
+      transition: 1s;
+      &:after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 8px 6px 0 6px;
+        border-color: transparent transparent #ffffe5;
+      }
+    }
+    &:hover {
+      .color-description {
+        display: block;
+        transition: 1s;
+      }
+    }
+  }
+}

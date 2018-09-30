@@ -3,7 +3,7 @@
 default: &default
   source_path: app/javascript
   source_entry_path: packs
-  public_output_path: packs
+  public_output_path: assets
   cache_path: tmp/cache/webpacker
   check_yarn_integrity: false
 
@@ -15,6 +15,7 @@ default: &default
   cache_manifest: false
 
   extensions:
+    - .jsx
     - .vue
     - .js
     - .sass

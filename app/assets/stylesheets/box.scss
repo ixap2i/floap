@@ -1,0 +1,147 @@
+.box {
+  position: absolute;
+  &.-left {
+    left: 0;
+  }
+  &.-right {
+    top: 0;
+    right: 0;
+    -moz-animation-duration: 2s;
+    -moz-animation-name: fadeIn-box;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-name: fadeIn-box;  
+    animation-iteration-count: 1;
+  }
+  &__top {
+    width: 300px;
+    height:100vh;
+    position: fixed;
+    padding-top: 30px;
+    background:
+    repeating-linear-gradient(
+      -45deg,
+      transparent 0,
+      transparent 25%,
+      #3f7bfe 0,
+      #3f7bfe 50%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent 0,
+      transparent 25%,
+      #f1c485 0,
+      #f1c485 50%
+    ),
+    repeating-linear-gradient(
+      transparent 0,
+      transparent 25%,
+      #ffef94 0,
+      #ffef94 50%
+    ), white;
+    background-blend-mode: multiply;
+    background-size: 100px 100px;
+    a {
+      color: #ffffe5;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+      font-size: 16pt;
+    }
+    animation-duration: 50s;
+    animation-name: pattern;
+    -moz-animation-duration: 50s;
+    -moz-animation-name: pattern;
+    -webkit-animation-duration: 50s;
+    -webkit-animation-name: pattern;
+    animation-iteration-count: infinite;
+  }
+  @keyframes pattern {
+    0% {
+      background:
+      repeating-linear-gradient(
+        -45deg,
+        transparent 0,
+        transparent 25%,
+        #3f7bfe 0,
+        #3f7bfe 50%
+      ),
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 25%,
+        #f1c485 0,
+        #f1c485 50%
+      ),
+      repeating-linear-gradient(
+        transparent 0,
+        transparent 25%,
+        #ffef94 0,
+        #ffef94 50%
+      ), white;
+      background-blend-mode: multiply;
+      background-size: 100px 100px;
+    }
+    50% {
+      background:
+      repeating-linear-gradient(
+        -45deg,
+        transparent 0,
+        transparent 25%,
+        #aac2f5 0,
+        #aac2f5 50%
+      ),
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 25%,
+        #3f7bfe 0, 
+        #3f7bfe 50%
+      ),
+      repeating-linear-gradient(
+        transparent 0,
+        transparent 25%,
+        #f3d0fc 0,
+        #f3d0fc 50%
+      ), white;
+      background-blend-mode: multiply;
+      background-size: 100px 100px;
+    }
+    100% {
+      background:
+      repeating-linear-gradient(
+        -45deg,
+        transparent 0,
+        transparent 25%,
+        #3f7bfe 0,
+        #3f7bfe 50%
+      ),
+      repeating-linear-gradient(
+        45deg,
+        transparent 0,
+        transparent 25%,
+        tomato 0,
+        tomato 50%
+      ),
+      repeating-linear-gradient(
+        transparent 0,
+        transparent 25%,
+        gold 0,
+        gold 50%
+      ), white;
+      background-blend-mode: multiply;
+      background-size: 100px 100px;
+    }
+  }
+  @keyframes fadeIn-box {
+    0% {
+      display: none;
+      opacity: 0;
+    }
+    50% {
+      display: block;
+      opacity: 0.8;
+    }
+    100% {
+      display: block;
+      opacity: 1;
+    }
+  }
+}

@@ -1,6 +1,6 @@
 require 'elasticsearch/model'
 class FlowerTag < ApplicationRecord
-  require 'elasticsearch/model'
+  include Elasticsearch::Model
   include FlowerTagSearchable
 
   belongs_to :flower

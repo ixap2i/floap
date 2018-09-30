@@ -4,49 +4,48 @@ module FlowerSearchable
 
   included do
     include Elasticsearch::Model
+    index_name "flower_#{Rails.env}"
 
     # Set up index configuration and mapping
-    mapping do
-      indexes :id, type: "integer", index: "not_analyzed"
-      indexes :name, type: "string", analyzer: "kuromoji_analyzer",
+    settings do
+      mappings dynamic: 'false' do
+        indexes :name, type: 'text', analyzer: "kuromoji"
 
-      _source: {enabled: true},
-      _all: {enabled: true, analyzer: "kuromoji_analyzer"} do
-        indexes :id, type: "integer", index: "not_analyzed"
-        indexes :name, type: "string", analyzer: "kuromoji_analyzer"
+        indexes :flower_tags, type: :nested do
+          indexes :tag, type: 'text', analyzer: "kuromoji"
+          indexes :red, type: 'text', analyzer: "kuromoji"
+          indexes :blue, type: 'text', analyzer: "kuromoji"
+          indexes :green, type: 'text', analyzer: "kuromoji"
+
+        end
       end
     end
 
-    index_name "flower_#{Rails.env}"
 
     def as_indexed_json(options={})
       flower_attrs = {
         id: self.id,
         name: self.name
       }
+      flower_attrs[:flower_tags] = self.flower_tag.map do |fl|
+        {
+          tag: fl.tag,
+          red: fl.red,
+          blue: fl.blue,
+          green: fl.green
+        }
+      end
       flower_attrs.as_json
     end
-  end
 
-  def self.search
-    search_definition = Elasticsearch::DSL::Search.search({
-      match: {
-        "flower.keyword": self,
-        fuzziness: "AUTO"
-      }
-    })
-  end
-
-
-  module ClassMethods
-    def create_index!(options={})
-      client = __elasticsearch__.client
-      client.indices.delete index: self.index_name rescue nil
-      client.indices.create(index: self.index_name,
-                            body: {
-                              settings: self.settings.to_hash,
-                              mappings: self.mappings.to_hash
-                            })
+    def self.search query
+      search_definition = Elasticsearch::DSL::Search.search({
+        match_all: {
+          query: query,
+          fuzziness: "AUTO",
+          fields: ['name', 'flower_tags.tag', 'flower_tags.red', 'flower_tags.green', 'flower_tags.blue']
+        }
+      })
     end
   end
 end

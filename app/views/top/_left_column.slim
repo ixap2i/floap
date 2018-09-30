@@ -1,0 +1,14 @@
+.box__top.-left
+  = embedded_svg "logo.svg", class: ""
+  ul.menu__fade.border__preset
+    li
+      = link_to "top", "/"
+    li
+      = link_to "about", ""
+    li
+      = link_to "search", flowers_path
+    li
+      = link_to "pict", ""
+    li
+      = link_to do
+        = embedded_svg "GitHub-Mark-64px.svg", class: "title -github"
