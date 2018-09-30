@@ -27154,3 +27154,38 @@ Processing by FlowersController#index as HTML
 Completed 200 OK in 97ms (Views: 78.1ms | ActiveRecord: 12.9ms)
 
 
+Started GET "/" for 127.0.0.1 at 2018-09-30 21:59:33 +0900
+Processing by TopController#index as HTML
+  Rendering top/index.html.slim within layouts/application
+[Webpacker] Compiling…
+[Webpacker] Compilation failed:
+
+Hash: 5ca57fcf147f893cf206
+Version: webpack 3.12.0
+Time: 1059ms
+                                  Asset       Size  Chunks             Chunk Names
+      hello_vue-6562eaa108746f07bab1.js     232 kB       0  [emitted]  hello_vue
+    application-329cdb895a38dc670f35.js    3.27 kB       1  [emitted]  application
+  hello_vue-6562eaa108746f07bab1.js.map     284 kB       0  [emitted]  hello_vue
+application-329cdb895a38dc670f35.js.map    3.19 kB       1  [emitted]  application
+                          manifest.json  278 bytes          [emitted]  
+   [0] (webpack)/buildin/global.js 509 bytes {0} [built]
+   [1] ./app/javascript/packs/application.js 514 bytes {1} [built]
+   [2] ./app/javascript/packs/hello_vue.js 1.88 kB {0} [built]
+   [7] ./app/javascript/app.vue 189 bytes {0} [built] [failed] [1 error]
+    + 4 hidden modules
+
+ERROR in ./app/javascript/app.vue
+Module parse failed: Unexpected token (1:0)
+You may need an appropriate loader to handle this file type.
+| <template>
+|   <div id="app">
+|     <p>{{ message }}</p>
+ @ ./app/javascript/packs/hello_vue.js 8:0-29
+
+  Rendered top/_right_column.slim (4918.3ms)
+  Rendered top/index.html.slim within layouts/application (4944.9ms)
+  Rendered top/_left_column.slim (15.7ms)
+Completed 200 OK in 5138ms (Views: 5124.5ms | ActiveRecord: 0.0ms)
+
+
