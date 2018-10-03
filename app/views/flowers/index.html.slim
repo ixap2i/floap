@@ -1,7 +1,7 @@
 .box.-right
-  h1.title.-search
-    | Flowers#index
-  p
+  h1.title.-fl-name
+    | 花見図鑑
+  /p
     | Find me in app/views/flowers/index.html.erb
   = form_tag flowers_path, :method => :get do
     = text_field_tag :search, params[:search], class: "form__text"
