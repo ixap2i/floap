@@ -21,21 +21,21 @@ module FlowerSearchable
       end
     end
 
-
     def as_indexed_json(options={})
-      flower_attrs = {
-        id: self.id,
-        name: self.name
-      }
-      flower_attrs[:flower_tags] = self.flower_tag.map do |fl|
-        {
-          tag: fl.tag,
-          red: fl.red,
-          blue: fl.blue,
-          green: fl.green
-        }
-      end
-      flower_attrs.as_json
+      as_json(only: %i(id name), include: {only: %i(tag red blue green)})
+      # flower_attrs = {
+      #   id: self.id,
+      #   name: self.name
+      # }
+      # flower_attrs[:flower_tags] = self.flower_tag.map do |fl|
+      #   {
+      #     tag: fl.tag,
+      #     red: fl.red,
+      #     blue: fl.blue,
+      #     green: fl.green
+      #   }
+      # end
+      # flower_attrs.as_json
     end
 
     def self.search query

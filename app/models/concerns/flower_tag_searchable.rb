@@ -19,11 +19,12 @@ module FlowerTagSearchable
     index_name "flower_#{Rails.env}"
 
     def as_indexed_json(options={})
-      flower_attrs = {
-        id: self.id,
-        tag: self.tag
-      }
-      flower_attrs.as_json
+      as_json(only: %i(id name))
+      # flower_attrs = {
+      #   id: self.id,
+      #   tag: self.tag
+      # }
+      # flower_attrs.as_json
     end
 
     def self.search
@@ -36,9 +37,8 @@ module FlowerTagSearchable
     end
   end
 
-
-
-  module ClassMethods
+  # module ClassMethods
+  class_methods do
     def create_index!(options={})
       client = __elasticsearch__.client
       client.indices.delete index: self.index_name rescue nil

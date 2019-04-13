@@ -16,8 +16,7 @@ namespace :scrape_flower_images do
 
     doc.search('#resultArea div a img').each.with_index(1) do |flower,i|
       # 次の番号の名前とセット
-      unless flower.attribute("src").nil?
-
+      if flower.attribute("src").present?
         name = flower.attribute("src").value.to_s
         img = flower.attribute("alt").to_s
         flower = Flower.new(name: val, img: img)
