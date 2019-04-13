@@ -1,8 +1,17 @@
 FROM ruby:2.4.0
 # シェルスクリプトとしてbashを利用
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
+# apt-getを使えるようにdebian jessieを更新する
+RUN printf "deb http://archive.debian.org/debian/ jessie main\ndeb-src \
+http://archive.debian.org/debian/ jessie main\ndeb \
+http://security.debian.org jessie/updates main\ndeb-src \
+http://security.debian.org jessie/updates main" > /etc/apt/sources.list
+
 # 必要なライブラリインストール
 RUN apt-get update -qq && apt-get install -y build-essential libpq-dev
+# とりあえずvim
+RUN apt-get install vim -y
 # yarnパッケージ管理ツールインストール
 RUN apt-get update && apt-get install -y curl apt-transport-https wget && \
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \

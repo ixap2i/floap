@@ -14,8 +14,8 @@ default: &default
   encoding: utf8
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
-  password:  <%= ENV["DB_PASSWORD"] %>
-  socket: /tmp/mysql.sock
+  password:  <%= ENV['FLOAP_DATABASE_PASSWORD'] %>
+  host: db
 
 development:
   <<: *default
@@ -51,4 +51,5 @@ production:
   <<: *default
   database: floap_production
   username: floap
-  # password: <%= ENV['FLOAP_DATABASE_PASSWORD'] %>
+  password: <%= ENV['FLOAP_DATABASE_PASSWORD'] %>
+  

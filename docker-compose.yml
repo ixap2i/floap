@@ -13,3 +13,9 @@ services:
     image: mysql:5.7.17
     ports:
       - "3306:3306"
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: <%= ENV['FLOAP_DATABASE_PASSWORD'] %>
+      MYSQL_DATABASE: mysql
+    hostname: mysql
+
